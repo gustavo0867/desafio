@@ -5,8 +5,8 @@
 
     <!-- Links para cadastro de veículos e motoristas -->
     <div class="mb-3">
-        <a href="{{ route('veiculos.create') }}" class="btn btn-success">Cadastrar Veículo</a>
-        <a href="{{ route('motoristas.create') }}" class="btn btn-primary">Cadastrar Motorista</a>
+        <a href="{{ route('veiculos.index') }}" class="btn btn-success">Veículos</a>
+        <a href="{{ route('motoristas.index') }}" class="btn btn-primary">Motoristas</a>
     </div>
 
     <div class="mb-3">
