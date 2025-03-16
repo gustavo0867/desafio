@@ -6,10 +6,13 @@ use App\Models\Viagem;
 use App\Models\Motorista;
 use App\Models\Veiculo;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreViagemRequest;
+use App\Http\Requests\UpdateViagemRequest;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class ViagemController  
+
+class ViagemController
 {
     public function index()
     {
@@ -26,38 +29,60 @@ class ViagemController
 
     public function store(Request $request)
     {
-        // Validação
-        $request->validate([
-            'veiculo_id' => 'required|exists:veiculos,id',
-            'distancia' => 'required|integer|min:0',
-            'data_hora_inicio' => 'required|date|after_or_equal:' . Carbon::today()->toDateString(),
-            'data_hora_chegada' => 'nullable|date|after:data_hora_inicio',
-            'motoristas' => 'required|array|min:1|max:4',
-            'motoristas.*' => 'exists:motoristas,id',
+    // Validação
+    $request->validate([
+        'veiculo_id' => 'required|exists:veiculos,id',
+        'distancia' => 'required|integer|min:0',
+        'data_hora_inicio' => 'required|date|after_or_equal:' . Carbon::today()->toDateString(),
+        'data_hora_chegada' => 'nullable|date|after:data_hora_inicio',
+        'motoristas' => 'required|array|min:1|max:4',
+        'motoristas.*' => 'exists:motoristas,id',
+    ]);
+
+    // Verificar se o motorista está ocupado
+    // Verificar se o motorista está ocupado
+    foreach ($request->motoristas as $motoristaId) {
+    // Obter o nome do motorista
+    $motorista = Motorista::findOrFail($motoristaId);
+    
+    $motoristaOcupado = DB::table('motorista_viagem')
+        ->join('viagens', 'motorista_viagem.viagem_id', '=', 'viagens.id')
+        ->where('motorista_viagem.motorista_id', $motoristaId)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('viagens.data_hora_inicio', [$request->data_hora_inicio, $request->data_hora_chegada])
+                  ->orWhereBetween('viagens.data_hora_chegada', [$request->data_hora_inicio, $request->data_hora_chegada]);
+        })
+        ->exists();
+
+    if ($motoristaOcupado) {
+        return redirect()->back()->withErrors(['motoristas' => 'O motorista "' . $motorista->nome . '" já está ocupado nesse intervalo de tempo.'])->withInput();
+        }
+    }
+
+
+    DB::transaction(function () use ($request) {
+        $veiculo = Veiculo::findOrFail($request->veiculo_id);
+
+        // Criar viagem
+        $viagem = Viagem::create([
+            'veiculo_id' => $request->veiculo_id,
+            'distancia' => $request->distancia,
+            'data_hora_inicio' => $request->data_hora_inicio,
+            'data_hora_chegada' => $request->data_hora_chegada,
         ]);
 
-        DB::transaction(function () use ($request) {
-            $veiculo = Veiculo::findOrFail($request->veiculo_id);
+        // Associar motoristas
+        $viagem->motoristas()->attach($request->motoristas);
 
-            // Criar viagem
-            $viagem = Viagem::create([
-                'veiculo_id' => $request->veiculo_id,
-                'distancia' => $request->distancia,
-                'data_hora_inicio' => $request->data_hora_inicio,
-                'data_hora_chegada' => $request->data_hora_chegada,
-            ]);
+        // Atualizar KM do veículo
+        $veiculo->update([
+            'km_atual' => $veiculo->km_atual + $request->distancia,
+        ]);
+    });
 
-            // Associar motoristas
-            $viagem->motoristas()->attach($request->motoristas);
-
-            // Atualizar KM do veículo
-            $veiculo->update([
-                'km_atual' => $veiculo->km_atual + $request->distancia,
-            ]);
-        });
-
-        return redirect()->route('viagens.index')->with('success', 'Viagem criada com sucesso!');
+    return redirect()->route('viagens.index')->with('success', 'Viagem criada com sucesso!');
     }
+
 
     public function edit($id)
     {
@@ -80,6 +105,27 @@ class ViagemController
         'motoristas' => 'required|array|min:1|max:4',
         'motoristas.*' => 'exists:motoristas,id',
     ]);
+
+    // Verificar se o motorista está ocupado
+    // Verificar se o motorista está ocupado
+    foreach ($request->motoristas as $motoristaId) {
+    // Obter o nome do motorista
+    $motorista = Motorista::findOrFail($motoristaId);
+    
+    $motoristaOcupado = DB::table('motorista_viagem')
+        ->join('viagens', 'motorista_viagem.viagem_id', '=', 'viagens.id')
+        ->where('motorista_viagem.motorista_id', $motoristaId)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('viagens.data_hora_inicio', [$request->data_hora_inicio, $request->data_hora_chegada])
+                  ->orWhereBetween('viagens.data_hora_chegada', [$request->data_hora_inicio, $request->data_hora_chegada]);
+        })
+        ->exists();
+
+    if ($motoristaOcupado) {
+        return redirect()->back()->withErrors(['motoristas' => 'O motorista "' . $motorista->nome . '" já está ocupado nesse intervalo de tempo.'])->withInput();
+    }
+}
+
 
     DB::transaction(function () use ($request, $viagem) {
         // Pega o veículo antigo da viagem
@@ -112,6 +158,7 @@ class ViagemController
 
     return redirect()->route('viagens.index')->with('success', 'Viagem atualizada com sucesso!');
     }
+
 
 
     public function destroy($id)
