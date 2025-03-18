@@ -2,6 +2,10 @@
 
 Este é um projeto desenvolvido para avaliação de conhecimentos em Laravel. O sistema tem como objetivo gerenciar o controle de viagens, com funcionalidades para CRUD de **Veículos**, **Motoristas** e **Viagens**.
 
+**Veja o vídeo de funcionamento do sistema:**
+
+[![YouTube](https://upload.wikimedia.org/wikipedia/commons/1/1f/YouTube_Logo_2015.png)](https://youtu.be/L-dzZsv4me0)
+
 ## Tecnologias Utilizadas
 
 - **Laravel** (para desenvolvimento backend)
