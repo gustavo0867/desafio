@@ -22,25 +22,26 @@ O projeto segue a arquitetura **MVC** (Model-View-Controller) do Laravel. A orga
 ## Funcionalidades
 
 ### CRUD de Veículos
-- **Modelo**
-- **Ano**
-- **Data de aquisição**
-- **KMs rodados no momento da aquisição**
-- **Renavam** (único)
-- **Placa** (único)
+- **Modelo**: Nome ou descrição do veículo.
+- **Ano**: Ano de fabricação ou modelo.
+- **Data de aquisição**: Data em que o veículo foi adquirido.
+- **KM da aquisição**: Quilometragem registrada no veículo no momento da aquisição.
+- **KM atual**: Quilometragem atual do veículo.
+- **Renavam**: Número único de identificação do veículo.
+- **Placa**: Número único da placa do veículo.
 
 ### CRUD de Motoristas
-- **Nome**
-- **Data de nascimento** (deve ter no mínimo 18 anos)
-- **Número da CNH**
+- **Nome**: Nome completo do motorista.
+- **Data de nascimento**: Data de nascimento do motorista (deve ter no mínimo 18 anos).
+- **CNH**: Número da Carteira Nacional de Habilitação.
 
 ### CRUD de Viagens
-- **Escolher motoristas**
-- **Escolher o veículo**
-- **KM inicial no início da viagem**
-- **KM final no final da viagem**
-- **Data e hora de início**
-- **Data e hora de chegada**
+- **Selecionar Motoristas**: Escolha um ou mais motoristas para a viagem.
+- **Selecionar Veículo**: Escolha o veículo para a viagem.
+- **Distância**: Informe a distância percorrida durante a viagem.
+- **Data e hora de início**: Registre o início da viagem.
+- **Data e hora de chegada**: Registre o fim da viagem.
+
 
 ## Como Rodar o Projeto
 
