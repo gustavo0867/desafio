@@ -128,14 +128,4 @@ php artisan serve
 ```
 Acesse o sistema no navegador em: [http://localhost:8000](http://localhost:8000).
 
-## Estrutura de Pastas
-
-A organização das pastas segue o padrão do Laravel:
-
-- **`app/Http/Controllers`**: Controladores que gerenciam a lógica do sistema.
-- **`app/Models`**: Modelos que representam as entidades (Veículos, Motoristas, Viagens).
-- **`app/Http/Requests`**: Requests usados para validação de dados.
-- **`resources/views`**: Views do Laravel, onde os templates Blade estão localizados.
-- **`public`**: Arquivos públicos, incluindo o CSS, imagens e JavaScript.
-
 
