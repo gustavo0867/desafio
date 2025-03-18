@@ -9,7 +9,7 @@ class StoreViagemRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // Autoriza todas as requisições
+        return true; 
     }
 
     public function rules()

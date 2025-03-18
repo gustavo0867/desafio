@@ -7,15 +7,20 @@ class UpdateMotoristaRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // Permissão para atualizar motorista
+        return true; 
     }
 
     public function rules()
     {
+        $this->route('id');
+
+
+
         return [
             'nome' => 'required|string',
             'data_nascimento' => 'required|date',
-            'cnh' => 'required|string|unique:motoristas,cnh,' . $this->route('motorista'), // Ignora o motorista atual
+            'cnh' => 'required|string|unique:motoristas,cnh,' . $this->route('id'),
+
         ];
     }
 
