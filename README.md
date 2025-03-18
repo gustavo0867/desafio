@@ -89,16 +89,6 @@ composer install
 ```
 ### 4. **Configurar o Banco de Dados**
 
-Apague a pasta database para não persistir e rode o banco de dados que está configurado no Docker com PostgreSQL. Para rodá-lo, execute o seguinte comando:
-
-```bash
-rm -rf ./storage/database
-docker-compose up -d
-ou
-rm -rf ./storage/database
-docker compose up -d
-```
-
 Se você não estiver utilizando Docker, edite o arquivo `.env` com as configurações do seu banco de dados PostgreSQL:
 
 ```ini
@@ -108,6 +98,16 @@ DB_PORT=5432
 DB_DATABASE=nome_do_banco
 DB_USERNAME=usuario
 DB_PASSWORD=senha
+```
+
+Apague a pasta database para não persistir e rode o banco de dados que está configurado no Docker com PostgreSQL. Para rodá-lo, execute o seguinte comando:
+
+```bash
+rm -rf ./storage/database
+docker-compose up -d
+ou
+rm -rf ./storage/database
+docker compose up -d
 ```
 
 ### 5. **Rodar as Migrations**
