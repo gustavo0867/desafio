@@ -47,7 +47,7 @@ class VeiculoController
         $temViagens = $veiculo->viagens()->exists(); 
 
         // Se o veículo tem viagens e a nova quilometragem for menor que a atual ou maior, bloqueia a alteração
-        if ($temViagens && $novaQuilometragem < $veiculo->km_atual || $temViagens && $novaQuilometragem > $veiculo->km_atual ) {
+        if ($temViagens && $novaQuilometragem < $veiculo->km_atual ) {
             return redirect()->back()->with('error', 'Não é possível reduzir a quilometragem de um veículo já utilizado em viagens.');
         }
 
@@ -62,8 +62,15 @@ class VeiculoController
     public function destroy($id)
     {
         $veiculo = Veiculo::findOrFail($id); // Busca o veículo pelo ID
+
+        // Verificar se o veículo tem viagens associadas
+        if ($veiculo->viagens()->exists()) {
+            return redirect()->route('veiculos.index')->with('error', 'Não é possível excluir um veículo que tem viagens associadas.');
+        }
+
         $veiculo->delete(); // Exclui o veículo
 
         return redirect()->route('veiculos.index')->with('success', 'Veículo excluído com sucesso!');
     }
+
 }

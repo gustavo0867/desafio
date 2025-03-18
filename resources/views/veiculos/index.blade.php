@@ -4,7 +4,7 @@
     <div class="container">
 
     <div class="header-container">
-        <h1>Lista de Veículoss</h1>
+        <h1>Lista de Veículos</h1>
         <a href="{{ route('veiculos.create') }}" class="create-btn">+ Novo Veículo</a>
     </div>
 

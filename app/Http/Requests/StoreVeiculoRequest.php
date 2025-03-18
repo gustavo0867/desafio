@@ -18,8 +18,8 @@ class StoreVeiculoRequest extends FormRequest
             'modelo' => 'required|string',
             'ano' => 'required|integer',
             'data_aquisicao' => 'required|date',
-            'km_atual' => 'required|integer',
-            'km_aquisicao' => 'required|integer',
+            'km_atual' => 'required|integer|min:0', 
+            'km_aquisicao' => 'required|integer|min:0',
             'renavam' => 'required|string|regex:/^\d{11}$/|unique:veiculos',
             'placa' => 'required|string|regex:/^[A-Z]{3}\d[A-Z0-9]\d{2}$/|unique:veiculos',
         ];

@@ -14,18 +14,27 @@ class UpdateVeiculoRequest extends FormRequest
 
     public function rules()
     {
-        $veiculoId = $this->route('id'); 
+        $veiculoId = $this->route('id'); // Obtém o ID do veículo da rota
 
         return [
             'modelo' => 'required|string',
             'ano' => 'required|integer',
             'data_aquisicao' => 'required|date', 
-            'km_atual' => 'required|integer',
-            'km_aquisicao' => 'required|integer',
+            'km_atual' => 'required|integer|min:0', 
+            'km_aquisicao' => 'required|integer|min:0',
             'renavam' => 'required|string|regex:/^\d{11}$/|unique:veiculos,renavam,' . $veiculoId,
             'placa' => 'required|string|regex:/^[A-Z]{3}\d[A-Z0-9]\d{2}$/|unique:veiculos,placa,' . $veiculoId,
         ];
     }
+    
+    public function messages()
+    {
+        return [
+            'km_atual.min' => 'A quilometragem atual não pode ser negativa.',
+            'km_aquisicao.min' => 'A quilometragem de aquisição não pode ser negativa.',
+        ];
+    }
+    
 
     public function withValidator($validator)
     {
