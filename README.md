@@ -1,66 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Controle de Viagens
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um projeto desenvolvido para avaliação de conhecimentos em Laravel. O sistema tem como objetivo gerenciar o controle de viagens, com funcionalidades para CRUD de **Veículos**, **Motoristas** e **Viagens**.
 
-## About Laravel
+## Tecnologias Utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Laravel** (para desenvolvimento backend)
+- **Blade** (para templates do frontend)
+- **PostgreSQL 14+** (como banco de dados)
+- **Docker Compose** (para ambiente de banco de dados)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Arquitetura do Projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O projeto segue a arquitetura **MVC** (Model-View-Controller) do Laravel. A organização do código é a seguinte:
 
-## Learning Laravel
+- **Modelos**: Responsáveis pela interação com o banco de dados (pasta `app/Models`).
+- **Controladores**: Gerenciam a lógica da aplicação e a interação com as views (pasta `app/Http/Controllers`).
+- **Views**: Contêm as páginas do frontend e são renderizadas com **Blade** (pasta `resources/views`).
+- **Requests**: Usados para validação de dados antes de processar a lógica nos controladores (pasta `app/Http/Requests`).
+- **Migrations**: Estrutura do banco de dados, criando e modificando as tabelas (pasta `database/migrations`).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Funcionalidades
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### CRUD de Veículos
+- **Modelo**: Nome ou descrição do veículo.
+- **Ano**: Ano de fabricação ou modelo.
+- **Data de aquisição**: Data em que o veículo foi adquirido.
+- **KM da aquisição**: Quilometragem registrada no veículo no momento da aquisição.
+- **KM atual**: Quilometragem atual do veículo.
+- **Renavam**: Número único de identificação do veículo.
+- **Placa**: Número único da placa do veículo.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### CRUD de Motoristas
+- **Nome**: Nome completo do motorista.
+- **Data de nascimento**: Data de nascimento do motorista (deve ter no mínimo 18 anos).
+- **CNH**: Número da Carteira Nacional de Habilitação.
 
-## Laravel Sponsors
+### CRUD de Viagens
+- **Selecionar Motoristas**: Escolha um ou mais motoristas para a viagem.
+- **Selecionar Veículo**: Escolha o veículo para a viagem.
+- **Distância**: Informe a distância percorrida durante a viagem.
+- **Data e hora de início**: Registre o início da viagem.
+- **Data e hora de chegada**: Registre o fim da viagem.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## Como Rodar o Projeto
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 1. **Clonar o Repositório**
 
-## Contributing
+Primeiro, clone o repositório para o seu computador com o comando:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd <nome_do_diretorio>
+```
 
-## Code of Conduct
+### 2. **Pré-requisitos**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Certifique-se de ter as seguintes dependências instaladas:
 
-## Security Vulnerabilities
+- **PHP** (versão 8.0 ou superior)
+- **Composer** (para gerenciar as dependências PHP)
+- **Docker** (se for usar o banco de dados via Docker)
+  
+  Para o **Docker Desktop** no Windows, baixe e instale o [Docker Desktop](https://www.docker.com/products/docker-desktop), que não requer o WSL.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+### 3. **Instalando o PHP, Composer e Laravel**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Se você não tiver o PHP, o Composer ou o Laravel instalados, siga os passos abaixo para configurá-los.
+
+#### Instalar PHP e Composer
+
+No seu terminal, execute os seguintes comandos para instalar o PHP e o Composer:
+
+```bash
+sudo apt update
+sudo apt install php php-cli php-fpm php-mbstring php-xml php-zip php-curl php-bcmath php-json
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+```
+
+#### Instalar Laravel
+
+No diretório do seu projeto, instale as dependências do Laravel com o Composer:
+
+```bash
+composer install
+```
+### 4. **Configurar o Banco de Dados**
+
+O banco de dados está configurado no Docker com PostgreSQL. Para rodá-lo, execute o seguinte comando:
+
+```bash
+docker-compose up -d
+```
+
+Se você não estiver utilizando Docker, edite o arquivo `.env` com as configurações do seu banco de dados PostgreSQL:
+
+```ini
+DB_CONNECTION=pgsql
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=nome_do_banco
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+```
+
+### 5. **Rodar as Migrations**
+
+As migrations definem a estrutura das tabelas no banco de dados. Para rodar as migrations e configurar o banco de dados, execute:
+
+```bash
+php artisan migrate
+```
+
+Isso criará as tabelas necessárias, conforme definido nas migrations. Caso já tenha executado o comando uma vez e queira refazer as migrations, pode usar:
+
+```bash
+php artisan migrate:refresh
+```
+
+### 6. Iniciar o Servidor Laravel
+
+Depois de configurar o banco de dados e rodar as migrations, inicie o servidor de desenvolvimento do Laravel com:
+
+```bash
+php artisan serve
+```
+Acesse o sistema no navegador em: [http://localhost:8000](http://localhost:8000).
+
+
