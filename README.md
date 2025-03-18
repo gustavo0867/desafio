@@ -4,7 +4,8 @@ Este é um projeto desenvolvido para avaliação de conhecimentos em Laravel. O 
 
 **Veja o vídeo de funcionamento do sistema:**
 
-[![YouTube](https://upload.wikimedia.org/wikipedia/commons/1/1f/YouTube_Logo_2015.png)](https://youtu.be/L-dzZsv4me0)
+[YouTube](https://youtu.be/L-dzZsv4me0)
+
 
 ## Tecnologias Utilizadas
 
