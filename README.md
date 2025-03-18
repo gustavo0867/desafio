@@ -94,6 +94,9 @@ Apague a pasta database para não persistir e rode o banco de dados que está co
 ```bash
 rm -rf ./storage/database
 docker-compose up -d
+ou
+rm -rf ./storage/database
+docker compose up -d
 ```
 
 Se você não estiver utilizando Docker, edite o arquivo `.env` com as configurações do seu banco de dados PostgreSQL:
