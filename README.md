@@ -89,9 +89,10 @@ composer install
 ```
 ### 4. **Configurar o Banco de Dados**
 
-O banco de dados está configurado no Docker com PostgreSQL. Para rodá-lo, execute o seguinte comando:
+Apague a pasta database para não persistir e rode o banco de dados que está configurado no Docker com PostgreSQL. Para rodá-lo, execute o seguinte comando:
 
 ```bash
+rm -rf ./storage/database
 docker-compose up -d
 ```
 
