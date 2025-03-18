@@ -109,9 +109,10 @@ DB_PASSWORD=senha
 
 ### 5. **Rodar as Migrations**
 
-As migrations definem a estrutura das tabelas no banco de dados. Para rodar as migrations e configurar o banco de dados, execute:
+As migrations definem a estrutura das tabelas no banco de dados. Crie a key generate e rode as migrations para configurar o banco de dados, execute:
 
 ```bash
+php artisan key:generate
 php artisan migrate
 ```
 
